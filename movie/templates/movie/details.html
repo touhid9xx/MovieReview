@@ -1,0 +1,42 @@
+{% extends 'home.html' %}
+{% block content %}
+
+
+       
+  
+<div class="container mt-5">
+    <div class="row">
+        {% if movie.image %}
+            <div class="col-md-2"> <img src="{{movie.image.url}}" alt="" class="zoom" style="height: 300px; width: 175px;"></div>
+            {% endif %}
+        <div class="col-md-10">
+          <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Cast</th>
+                            <th>Release Date</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td scope="row">{{movie.name}}</i></td>
+                            <td>{{movie.cast}}</td>
+                            <td><i>{{movie.release_date}}</i></td>
+                            
+                        </tr>
+                        <tr>
+                            <p>{{movie.description}}</p>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+    </div>
+    <div class="div">
+        <button class="btn btn-success"><a href="{%url 'edit-movie' movie.id %}">Edit</a></button>
+        <button class="btn btn-outline-warning"><a href="{%url 'delete-movie' movie.id %}">Delete</a></button>
+    </div>
+</div>   
+  
+{% endblock content%}
