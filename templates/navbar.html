@@ -9,18 +9,41 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
             </li>
-    
+            {% if user.is_superuser %}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Movie</a>
                 <div class="dropdown-menu" aria-labelledby="dropdownId">
-                    <a class="dropdown-item" href="{% url 'add-movie' %}">Add Movies</a>
-                    
+                    <a class="dropdown-item" href="{% url 'add-movie' %}">Add Movies</a>    
                 </div>
             </li>
+            {% endif %}
             <li class="nav-item">
                 <a class="nav-link" href="#">Contact Us</a>
             </li>
         </ul>
+        <ul class="navbar-nav">
+            {% if user.is_authenticated %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{user.username | capfirst }}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                  <a class="dropdown-item" href="#">Edit Profile</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </li>
+            {% else %}
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'register' %}">Register</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+            {% endif %}
+        </ul>
+        
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>

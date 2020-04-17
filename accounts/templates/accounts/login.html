@@ -1,0 +1,30 @@
+{% extends 'home.html' %}
+{% block content %}
+<div class="container">
+    <div class="card" id="card-login">
+        <div class="card-body">
+            <form action="." method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="">Username</label>
+                  <input type="text"
+                    class="form-control" name="username" id="" aria-describedby="helpId" placeholder="Enter usernanme">
+                 
+                </div>
+                <div class="form-group">
+                    <label for="">Password</label>
+                    <input type="text"
+                      class="form-control" name="password" id="" aria-describedby="helpId" placeholder="Enter password">
+                  </div>
+
+                  <input type="submit" value="Login" class="btn btn-outline-success">
+
+                  {% if error %}
+                  <i style="color: red;"> {{ error }}</i>
+                  {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content%}

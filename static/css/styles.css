@@ -51,7 +51,9 @@ header {
 	transform: scale(1.2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
   }
 
-  .movie-form {
-	height: 250px;
-	width: 230px;
-  }
+ #card-login {
+	 height: 300px;
+	 width: 420px;
+ }
+
+  

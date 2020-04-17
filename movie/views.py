@@ -25,37 +25,56 @@ def details(request, id):
 
 
 def createMovie(request):
-    form = MovieForm()
-    if request.method == 'POST':
-        form = MovieForm(request.POST, request.FILES)
-        
-        if form.is_valid():
-            movie = form.save()
-            movie.save()
-            return redirect('movie' ,id = movie.id)
-        else :
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
             form = MovieForm()
-        
+            if request.method == 'POST':
+                form = MovieForm(request.POST, request.FILES)
+                
+                if form.is_valid():
+                    movie = form.save()
+                    movie.save()
+                    return redirect('movie' ,id = movie.id)
+                else :
+                    form = MovieForm()
+        else: 
+            return redirect('index')
+    else:
+        return redirect('login')    
         
     return render(request, 'movie/addmovie.html', {'form': form, 'controller': "Add Movies"})
 
 
 def editMovie(request, id):
     movie = Movie.objects.get(id=id)
-
-    if request.method == 'POST':
-       form = MovieForm(request.POST or None, instance=movie) 
-       if form.is_valid():
-        data = form.save() 
-        data.save()
-       return redirect('movie',id)
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            if request.method == 'POST':
+                form = MovieForm(request.POST or None, instance=movie) 
+                if form.is_valid():
+                    data = form.save() 
+                    data.save()
+                return redirect('movie',id)
+            else:
+                form = MovieForm(instance=movie) 
+        else: 
+            return redirect('index')
     else:
-       form = MovieForm(instance=movie) 
-
+                return redirect('login')  
     return render(request, 'movie/addmovie.html', {'form': form, 'controller': "Edit Movies"})
+
+
 
 def deleteMovie(request, id):
     movie = Movie.objects.get(id=id)
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
 
-    movie.delete()
-    return redirect('index')
+
+            movie.delete()
+            return redirect('index')
+
+        else: 
+            return redirect('index')
+    else:
+        return redirect('login')  

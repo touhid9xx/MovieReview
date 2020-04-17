@@ -32,7 +32,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'movie',
-    # 'widget_tweaks',
+    'six',
+    'accounts',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -134,7 +135,7 @@ STATICFILES_DIRS = (
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
@@ -143,3 +144,5 @@ EMAIL_HOST_PASSWORD = 'tbweawnpwnodcuto'
 PASSWORD_RESET_TIMEOUT_DAYS = 2
 
 CRISPY_TEMPLATE_TAG = 'bootstrap4'
+
+LOGOUT_REDIRECT_URL='/login/'
